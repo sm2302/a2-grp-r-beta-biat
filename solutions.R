@@ -174,3 +174,66 @@ plot_ly(
   type = "scatter",
   mode = "markers"
 )
+
+#--------------------------------------------------
+
+### method 3
+# find random midpoints
+gamma
+
+# refer calculation for the formula of x and y
+
+C <- sqrt(r^2 - s^2)
+
+x1_m3 <- s*cos(gamma) + C*sin(gamma)
+y1_m3 <- s*sin(gamma) - C*cos(gamma)
+
+x2_m3 <- s*cos(gamma) - C*sin(gamma)
+y2_m3 <- s*sin(gamma) + C*cos(gamma)
+
+midx_m3 <- (x1_m3 + x2_m3)/2
+midy_m3 <- (y1_m3 + y2_m3)/2
+
+length_m3 <- sqrt((x1_m3 - x2_m3)^2 + (y1_m3 - y2_m3)^2)
+
+# compare length
+longer3 <- c()
+for (i in length_m3){
+  if (i >= side_tr){longer3 <- c(longer3, 1)}
+  else if (i < side_tr){longer3 <- c(longer3, 0)}
+}
+
+# cumulative sum
+long3 <- cumsum(longer3)
+long3
+
+# probability when each chord is added
+prob3 <- long3/m
+prob3
+
+#----------------------------------------------------
+
+df_m3 <- data.frame(x1_m3, y1_m3,
+                    x2_m3, y2_m3,
+                    midx_m3, midy_m3,
+                    prob3)
+
+ggplot(df_m3, aes(midx_m3,midy_m3)) +
+  geom_point() +
+  transition_components(m) +
+  shadow_mark() +
+  labs(title = "Probability: {frame_time}")
+
+plot_ly(
+  x = c(x1_m3, x2_m3),
+  y = c(y1_m3, y2_m3),
+  type = "scatter",
+  mode = "lines"
+)
+
+plot_ly(
+  x = midx_m3,
+  y = midy_m3,
+  type = "scatter",
+  mode = "markers"
+)
