@@ -109,6 +109,7 @@ plot_ly(
 
 #---------------------------------------------------
 
+
 ### method 2
 # select a point on the radius and find the two end points
 
@@ -118,6 +119,7 @@ s <- runif(n, 0, r)
 alpha <- runif(n, 0, 2*pi)
 
 # refer calculation for the formula of x and y
+
 C <- sqrt(r^2 - s^2)
 
 x1_m2 <- s*cos(alpha) + C*sin(alpha)
@@ -130,3 +132,45 @@ midx_m2 <- (x1_m2 + x2_m2)/2
 midy_m2 <- (y1_m2 + y2_m2)/2
 
 length_m2 <- sqrt((x1_m2 - x2_m2)^2 + (y1_m2 - y2_m2)^2)
+
+# compare length
+longer2 <- c()
+for (i in length_m2){
+  if (i >= side_tr){longer2 <- c(longer2, 1)}
+  else if (i < side_tr){longer2 <- c(longer2, 0)}
+}
+
+# cumulative sum
+long2 <- cumsum(longer2)
+long2
+
+# probability when each chord is added
+prob2 <- long2/m
+prob2
+
+#----------------------------------------------------
+
+df_m2 <- data.frame(x1_m2, y1_m2,
+                    x2_m2, y2_m2,
+                    midx_m2, midy_m2,
+                    prob2)
+
+ggplot(df_m2, aes(midx_m2,midy_m2)) +
+  geom_point() +
+  transition_components(m) +
+  shadow_mark() +
+  labs(title = "Probability: {frame_time}")
+
+plot_ly(
+  x = c(x1_m2, x2_m2),
+  y = c(y1_m2, y2_m2),
+  type = "scatter",
+  mode = "lines"
+)
+
+plot_ly(
+  x = midx_m2,
+  y = midy_m2,
+  type = "scatter",
+  mode = "markers"
+)
