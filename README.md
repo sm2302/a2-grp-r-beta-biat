@@ -38,6 +38,16 @@ Blue dots indicate the midpoint of the chord that are longer than the triangle s
 
 -   **METHOD C (random midpoints)**: Choose a point anywhere within the circle, and construct the chord such that the point chosen is the midpoint of the chord.
 
+![Visual using method 3](betrands%20paradox%20method%203.jpg){width="594"}
+
+For the third solution, imagine that the chord is defined by where its midpoint sits within the circle. In the diagram, there is a smaller circle inscribed within the triangle. It can be seen in the diagram that if the midpoint of the chord falls within this smaller circle, like Chord 1's does, then the chord is longer than the triangle's sides.
+
+![Chords chosen at random using method 3](method%203%20chords.gif){width="601"}
+
+Conversely, if the chord's centre lies outside of the smaller circle, then it is smaller than the triangle's sides. As the smaller circle has a radius 1/2 the size of the larger circle, it follows that it has 1/4 of the area. Therefore there is a probability of 1/4 that a random point lies within the smaller circle, hence a probability of 1/4 that the chord is longer than a triangle side.
+
+![Midpoints of the chords chosen at random and the probability using method 3](method%203%20plot.gif){width="601"}
+
 The three different methods above, all seemingly valid, yield different results for the probability in question! The exact answer can be worked out using geometric reasoning, but the goal of this assignment is to provide a visual and empirical way of calculating the probabilities.
 
 ## Instructions
